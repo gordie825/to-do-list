@@ -118,7 +118,7 @@ unset($pdo);
 <body>
     <div class="container login-page-container ">
 
-
+<!-- form start -->
 <form class="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
   <p class="login-text">
     <span class="fa-stack fa-lg">
@@ -149,7 +149,8 @@ unset($pdo);
 <div class="underlay-photo"></div>
 <div class="underlay-black"></div> 
 </form>
-
+<!-- form end -->
+        
     </div>
     <script src="./js/register.js"></script>
 </body>
