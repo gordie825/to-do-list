@@ -33,7 +33,7 @@ $user_id = $_SESSION["id"];
     <script src="https://kit.fontawesome.com/0cd95c0d58.js" crossorigin="anonymous"></script>
     <!--Custom CSS-->
     <link rel="stylesheet" type="text/css" href="./css/stylewelcome.css">
-
+    <!-- <link rel="stylesheet" type="text/css" href="./css/styles.css"> -->
     <title>Welcome <?php echo $username;?></title>
 </head>
 <body>
@@ -65,7 +65,7 @@ $user_id = $_SESSION["id"];
 
 
     <div class="text-center text-light my-4">
-        <h1 class="mb-4">Welcome <?php echo $username;?>, here is your to do list...</h1>
+        <h1 class="mb-4" id="head"> do the things that need to be done and get down </h1>
     </div>
 
     <div class="container">
@@ -83,7 +83,7 @@ $user_id = $_SESSION["id"];
         </div>
        
 
-        <ul class="list-group todos mx-auto text-light">
+        <ul class="list-group todos mx-auto text-dark">
         <!--PHP CLASSS START-->
             <?php
             require 'config/conn.php';
@@ -112,7 +112,8 @@ $user_id = $_SESSION["id"];
 
         <button type="submit" class="btn btn-dark mb-2" name="addTask" >Add Task</button>
         </form>
-
+        <div class="underlay-photo"></div>
+        <div class="underlay-black"></div> 
     </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
