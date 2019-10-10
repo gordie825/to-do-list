@@ -136,11 +136,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
       <i class="fa fa-lock fa-stack-1x"></i>
     </span>
   </p>
-<!--   username div    -->
+<!--   username div start   -->
   <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
   <input type="text" name="username" class="login-username" autofocus="true" required="true" placeholder="Username" value="<?php echo $username; ?>" />
   <span class="help-block"><?php echo $username_err; ?></span>
 </div>
+<!-- username div end -->
 
 <!--  password div start     -->
 <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
