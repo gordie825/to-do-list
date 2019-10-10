@@ -141,11 +141,13 @@ unset($pdo);
 </div> 
 <!-- password div end -->
     
+<!--  confirm password div start    -->
 <div class="form-group <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
   <input type="password" name="confirm_pass" class="login-password" required="true" placeholder="Confirm Password" value="<?php echo $confirm_password; ?>"/>
   <span class="help-block"><?php echo $confirm_password_err; ?></span>
 </div> 
-
+<!--  confirm password div end    -->
+    
   <input type="submit" name="submit" value="Subimt" class="login-submit" />
   <input type="reset" name="reset" value="Reset" class="login-submit" />
 
