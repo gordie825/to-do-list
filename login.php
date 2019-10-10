@@ -128,7 +128,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <title>Login</title>
 </head>
 <body class="login-body">
-
+<!-- form start -->
  <form class="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
   <p class="login-text">
     <span class="fa-stack fa-lg">
