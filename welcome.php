@@ -65,7 +65,7 @@ $user_id = $_SESSION["id"];
 
 
     <div class="text-center text-light my-4">
-        <h1 class="mb-4" id="head"> do the things that need to be done and get down </h1>
+        <h1 class="mb-4" id="head"> do the things that need to be done ,after all is said and done ,go and dust your place    </h1>
     </div>
 
     <div class="container">
@@ -79,7 +79,7 @@ $user_id = $_SESSION["id"];
         <div class="form-header my-3 d-flex justify-content-between">
             <span>Tasks</span>
             <span>Due Date</span>
-            <span>Delete/Edit Tasks</span>
+            <span>Delete</span>
         </div>
        
 
@@ -119,6 +119,7 @@ $user_id = $_SESSION["id"];
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="./js/ajx.js"></script>
+    <script src="./js/strike.js"></script>
    <!-- //<script src="./js/welcome.js"></script> -->
 </body>
 </html>
@@ -210,7 +211,7 @@ if(isset($_POST["addTask"])){
 
                 <li id="listitem-$task_id" class="list-group-item d-flex justify-content-between align-items-center $status">
                <span>$task</span>&nbsp;<span>$date</span></i><span><input type="submit" id="delete_button-$task_id" class="btn btn-dark fas delete" value="&#xf2ed" onclick="delete_row('$task_id')">  
-               <input type="submit" class="btn btn-dark fas check" value="&#xf00c" onclick="complete_task('$task_id')"></span>  </li>
+              </span>  </li>
 END;
   
                }
