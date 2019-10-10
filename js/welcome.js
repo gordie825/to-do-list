@@ -46,10 +46,10 @@ addform.addEventListener('submit', event =>{
 list.addEventListener('click',event=>{
 
 // if the what we click on (target) has the class Delete execute the code in the if statement block.
-//  if(event.target.classList.contains('delete')){
-//      event.target.parentElement.remove();
-//  }
-// });
+ if(event.target.classList.contains('delete')){
+     event.target.parentElement.remove();
+ }
+});
 
 
 
