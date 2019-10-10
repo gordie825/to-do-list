@@ -45,10 +45,7 @@ $user_id = $_SESSION["id"];
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item dropdown">
+                <ul class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-user"></i> <?php echo $username;?>
                     </a>
@@ -57,7 +54,7 @@ $user_id = $_SESSION["id"];
                     <a class="dropdown-item" href="resetpass.php"><i class="fas fa-unlock"></i>&nbsp;Reset Password</a>
                     <a class="dropdown-item" href="logout.php"><i class="fab fa-angellist"></i>&nbsp;Log Out</a>
                     </div>
-                </li>
+                </ul>
                 </ul>
             </div>
         </nav>
@@ -69,12 +66,12 @@ $user_id = $_SESSION["id"];
     </div>
 
     <div class="container">
-        <div class="text-center text-light my-4">
+        <!-- <div class="text-center text-light my-4">
             <h3 class="task-center form-header"> Search Tasks</h3>
             <form class="search" action="">
                 <input class="form-control m-auto" type="text" name="search" placeholder="Search Todos">
             </form>
-        </div>
+        </div> -->
 
         <!--Add Task Form-->
         <div class="text-center mt-5">
@@ -185,7 +182,7 @@ if(isset($_POST["addTask"])){
         unset($pdo);
         }
         else{
-            echo  "Please press add task";
+            echo  "Please add a damn task";
         }
     }
 
@@ -193,7 +190,7 @@ if(isset($_POST["addTask"])){
 
         include_once 'config/conn_class.php';
 
-        $sql = "SELECT * FROM items WHERE user_id=:user_id ORDER BY due_date ASC";
+        $sql = "SELECT list_item FROM items WHERE user_id=:user_id ORDER BY due_date ASC";
 
         if($stmt = $pdo->prepare($sql)){
             $stmt->bindParam(":user_id",$param_userID,PDO::PARAM_INT);
