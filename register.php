@@ -133,12 +133,14 @@ unset($pdo);
   <span class="help-block"><?php echo $username_err; ?></span>
 </div>
 <!-- username div end  -->
-    
+  
+<!--    password div start  -->
 <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
   <input type="password" name="password" class="login-password" required="true" placeholder="Password" value="<?php echo $password; ?>"/>
   <span class="help-block"><?php echo $password_err; ?></span>
 </div> 
-
+<!-- password div end -->
+    
 <div class="form-group <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
   <input type="password" name="confirm_pass" class="login-password" required="true" placeholder="Confirm Password" value="<?php echo $confirm_password; ?>"/>
   <span class="help-block"><?php echo $confirm_password_err; ?></span>
