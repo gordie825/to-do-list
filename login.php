@@ -153,7 +153,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <div class="underlay-photo"></div>
 <div class="underlay-black"></div> 
 </form>
-
+<!-- form end -->
     </div>
     
 </body>
