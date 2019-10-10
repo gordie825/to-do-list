@@ -126,11 +126,14 @@ unset($pdo);
       <i class="fa fa-lock fa-stack-1x"></i>
     </span>
   </p>
+    
+<!--  username div start    -->
   <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
   <input type="text" name="username" class="login-username" autofocus="true" required="true" placeholder="Username" value="<?php echo $username; ?>" />
   <span class="help-block"><?php echo $username_err; ?></span>
 </div>
-
+<!-- username div end  -->
+    
 <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
   <input type="password" name="password" class="login-password" required="true" placeholder="Password" value="<?php echo $password; ?>"/>
   <span class="help-block"><?php echo $password_err; ?></span>
