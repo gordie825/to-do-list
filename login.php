@@ -141,6 +141,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   <span class="help-block"><?php echo $username_err; ?></span>
 </div>
 
+<!--  password div start     -->
 <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
   <input type="password" name="password" class="login-password" required="true" placeholder="Password" />
   <span class="help-block"><?php echo $password_err; ?></span>
