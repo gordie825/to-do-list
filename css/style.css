@@ -1,0 +1,20 @@
+
+.body{
+    background:rgba(143, 163, 201, 0.61);
+}
+.login-body{
+    background:rgba(37, 55, 90, 0.61);
+}
+.login-page-container{
+    min-height: 100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+}
+.form-container{
+    width:500px;
+    background-color: beige;
+    border-radius: 5px;
+    padding: 2rem;
+}

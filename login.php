@@ -1,150 +1,182 @@
 <?php
-// Initialize the session
 session_start();
- 
-// Check if the user is already logged in, if yes then redirect him to welcome page
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: welcome.php");
-    exit;
-}
- 
-// Include config file
-require_once "CONFIG/config.php";
- 
-// Define variables and initialize with empty values
+
+//check if a user is already logged in, redirect to welcome page if logged in
+
+require_once 'function/functions.php';
+isUserLoggedin();
+// if(isset($_SESSION["loggedin"])&& $_SESSION["loggedin"]=== true){
+
+//     header("location: welcome.php");
+//     exit;
+// }
+require_once "config/conn.php";
+//define variables and initialize with empty values
+
 $username = $password = "";
 $username_err = $password_err = "";
- 
+
 // Processing form data when form is submitted
+
 if($_SERVER["REQUEST_METHOD"] == "POST"){
- 
-    // Check if username is empty
-    if(empty(trim($_POST["username"]))){
+    
+    //sanitize post_variables
+    $sanpost_username = filter_var($_POST["username"],FILTER_SANITIZE_STRING);
+
+    $sanpost_password = filter_var($_POST["password"],FILTER_SANITIZE_STRING);
+
+
+    //Validate Username
+    if(empty($sanpost_username)){
         $username_err = "Please enter username.";
     } else{
-        $username = trim($_POST["username"]);
+        $username = $sanpost_username;
     }
-    
-    // Check if password is empty
-    if(empty(trim($_POST["password"]))){
+    //Validate Password
+    if(empty($sanpost_password)){
         $password_err = "Please enter your password.";
     } else{
-        $password = trim($_POST["password"]);
+        $password = $sanpost_password;
     }
-    
-    // Validate credentials
+
+    //validate the user credentials
+
     if(empty($username_err) && empty($password_err)){
-        // Prepare a select statement
-        $sql = "SELECT id, username, password FROM users WHERE username = ?";
+
+       
+        // the error variables should be empty for a succesfful log in.
+
+        //Prepare a selct statement
+        $sql = "SELECT id, username, password FROM users WHERE username = :username";
         
-        if($stmt = $mysqli->prepare($sql)){
-            // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("s", $param_username);
+        if($stmt=$pdo->prepare($sql)){
             
-            // Set parameters
+            //Bind variables to the prepared statement as parameters
+
+            $stmt->bindParam(":username",$param_username,PDO::PARAM_STR);
+
+            //set parameters
             $param_username = $username;
+
+            //Attempt to execute the prepared statement
             
-            // Attempt to execute the prepared statement
             if($stmt->execute()){
-                // Store result
-                $stmt->store_result();
-                
-                // Check if username exists, if yes then verify password
-                if($stmt->num_rows == 1){                    
-                    // Bind result variables
-                    $stmt->bind_result($id, $username, $hashed_password);
-                    if($stmt->fetch()){
-                        if(password_verify($password, $hashed_password)){
-                            // Password is correct, so start a new session
-                            session_start();
-                            
-                            // Store data in session variables
-                            $_SESSION["loggedin"] = true;
-                            $_SESSION["id"] = $id;
-                            $_SESSION["username"] = $username;                            
-                            
-                            // Redirect user to welcome page
-                            header("location: welcome.php");
+                //the prepared statement was successfully executed
+                //if the resource was succesfully created, and the number of rows is equla to 1.  now verify the password
+                var_dump($username);
+
+                if($stmt->rowCount() == 1){
+
+                    if($data = $stmt->fetch()){
+
+                        $user_id = $data["id"];
+
+                        $username = $data["username"];
+
+                        $hashed_password = $data["password"];
+
+                        if(password_verify($password,$hashed_password)){
+                          //Correct password if true
+                          //start a new session
+                          session_start();
+                          //store data in session variables
+                          
+                          $_SESSION["loggedin"] = true;
+                        $_SESSION["id"] = $user_id;
+                          $_SESSION["username"] =$username;
+                          //redirect user to welcome page
+                          header("location: welcome.php");
                         } else{
-                            // Display an error message if password is not valid
-                            $password_err = "The password you entered was not valid.";
+                           //display an error message if username doesnt exist
+                           $password_err="The password enetered was not valid." ;
                         }
-                    }
-                } else{
-                    // Display an error message if username doesn't exist
-                    $username_err = "No account found with that username.";
+                    } 
+
                 }
-            } else{
-                echo "Oops! Something went wrong. Please try again later.";
+                else{
+                    //Username was not found
+                    $username_err="No account found with this username";
+                }
+                
+            }//error in fetch the data associated wuth stmt
+            else{
+                //redirect tp error page
+                echo "oops something whent wrong in fething data please try again later";
             }
         }
+        //close statement
+        unset($stmt);
         
-        // Close statement
-        $stmt->close();
+        
     }
-    
-    // Close connection
-    $mysqli->close();
+    unset($pdo);
 }
 ?>
- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-    
-    <link href="CSS/styles.css" type="text/css" rel="stylesheet">
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!--Font awesome-->
+    <script src="https://kit.fontawesome.com/0cd95c0d58.js" crossorigin="anonymous"></script>
+    <!--Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>To Do Login</title>
 </head>
-<body>
-    <!-- <div class="wrapper">
-        <h2>Login</h2>
-        <p>Please fill in your credentials to login.</p>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
-                <label>Username</label>
-                <input type="text" name="username" class="form-control" value="<?php echo $username; ?>">
-                <span class="help-block"><?php echo $username_err; ?></span>
-            </div>    
-            <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control">
-                <span class="help-block"><?php echo $password_err; ?></span>
+<body class="login-body">
+    
+    <div class="container mt-4">
+        <div class="row">
+        <div class="col-12 login-title text-center">
+            <h1>DMF Task Manager</h1>
+            
+        </div>
+        </div>
+    </div>
+    <div class="container login-page-container ">
+
+        <!--Login form-->
+        <div class="container form-container">
+            <div class="row">
+            <div class="col-sm-12">
+                <form role="form" method="POST">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Enter username." name="username" required>
+                    <small id="emailHelp" class="form-text text-muted"><?php echo $username_err;?></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="userpassword">Password</label>
+                    <input type="password" class="form-control" id="userpassword" placeholder="Password" name="password" required>
+                    <small id="emailHelp" class="form-text text-muted"><?php echo $password_err;?></small>
+                </div>
+
+                <button type="submit" class="btn btn-primary sign-in-btn">Sign in</button>
+
+                <a href="resetpass.php" class="btn btn-light">Reset
+                </a>
+
+
+                <div class="flex-col-c p-t-170 p-b-40">
+						<span class="txt1 p-b-9">
+							Don’t have an account?
+						</span>
+
+						<a href="register.php" class="txt3">
+							Sign up now
+						</a>
+                </div>
+                </form>
             </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Login">
             </div>
-            <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
-        </form>
-    </div>     -->
+        </div>
+        <!--Login form-->
 
-
-<form class="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-  <p class="login-text">
-    <span class="fa-stack fa-lg">
-      <i class="fa fa-circle fa-stack-2x"></i>
-      <i class="fa fa-lock fa-stack-1x"></i>
-    </span>
-  </p>
-  <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
-  <input type="text" name="username" class="login-username" autofocus="true" required="true" placeholder="Username" value="<?php echo $username; ?>" />
-  <span class="help-block"><?php echo $username_err; ?></span>
-</div>
-
-<div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
-  <input type="password" name="password" class="login-password" required="true" placeholder="Password" />
-  <span class="help-block"><?php echo $password_err; ?></span>
-</div> 
-
-  <input type="submit" name="submit" value="Login" class="login-submit" />
-
-
-<a href="register.php" class="login-forgot-pass">Sign Up Now</a>
-<div class="underlay-photo"></div>
-<div class="underlay-black"></div> 
-</form>
+    </div>
+    
 </body>
-
-
 </html>
