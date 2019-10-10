@@ -124,57 +124,35 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <script src="https://kit.fontawesome.com/0cd95c0d58.js" crossorigin="anonymous"></script>
     <!--Custom CSS-->
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>To Do Login</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <title>Login</title>
 </head>
 <body class="login-body">
-    
-    <div class="container mt-4">
-        <div class="row">
-        <div class="col-12 login-title text-center">
-            <h1>DMF Task Manager</h1>
-            
-        </div>
-        </div>
-    </div>
-    <div class="container login-page-container ">
 
-        <!--Login form-->
-        <div class="container form-container">
-            <div class="row">
-            <div class="col-sm-12">
-                <form role="form" method="POST">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Enter username." name="username" required>
-                    <small id="emailHelp" class="form-text text-muted"><?php echo $username_err;?></small>
-                </div>
+ <form class="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+  <p class="login-text">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-lock fa-stack-1x"></i>
+    </span>
+  </p>
+  <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
+  <input type="text" name="username" class="login-username" autofocus="true" required="true" placeholder="Username" value="<?php echo $username; ?>" />
+  <span class="help-block"><?php echo $username_err; ?></span>
+</div>
 
-                <div class="form-group">
-                    <label for="userpassword">Password</label>
-                    <input type="password" class="form-control" id="userpassword" placeholder="Password" name="password" required>
-                    <small id="emailHelp" class="form-text text-muted"><?php echo $password_err;?></small>
-                </div>
+<div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+  <input type="password" name="password" class="login-password" required="true" placeholder="Password" />
+  <span class="help-block"><?php echo $password_err; ?></span>
+</div> 
 
-                <button type="submit" class="btn btn-primary sign-in-btn">Sign in</button>
-
-                <a href="resetpass.php" class="btn btn-light">Reset
-                </a>
+  <input type="submit" name="submit" value="Login" class="login-submit" />
 
 
-                <div class="flex-col-c p-t-170 p-b-40">
-						<span class="txt1 p-b-9">
-							Don’t have an account?
-						</span>
-
-						<a href="register.php" class="txt3">
-							Sign up now
-						</a>
-                </div>
-                </form>
-            </div>
-            </div>
-        </div>
-        <!--Login form-->
+<a href="register.php" class="login-forgot-pass">Sign Up Now</a>
+<div class="underlay-photo"></div>
+<div class="underlay-black"></div> 
+</form>
 
     </div>
     
