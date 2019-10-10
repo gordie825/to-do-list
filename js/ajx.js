@@ -3,7 +3,7 @@ function delete_row(id)
  $.ajax
  ({
   type:'post',
-  url:'http://localhost/codespace/to-do-web-app-final/modify.php',
+  url:'modify.php',
   data:{
    delete_task:'delete_task',
    task_id:id,
@@ -27,7 +27,7 @@ function complete_task(id)
  $.ajax
  ({
   type:'post',
-  url:'http://localhost/codespace/to-do-web-app-final/modify.php',
+  url:'modify.php',
   data:{
     task_status:'task_status',
    task_id:id,
