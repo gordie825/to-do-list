@@ -148,8 +148,7 @@ unset($pdo);
 </div> 
 <!--  confirm password div end    -->
     
-  <input type="submit" name="submit" value="Subimt" class="login-submit" />
-  <input type="reset" name="reset" value="Reset" class="login-submit" />
+  <input type="submit" name="submit" value="REGISTER" class="login-submit" />
 
 
 <a href="login.php" class="login-forgot-pass">Have An Account? Login Here</a>
