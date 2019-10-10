@@ -83,7 +83,7 @@ if(empty($username_err)&& empty($password_err)&& empty($confirm_password_err)){
         //Execute the prepared statement
         if($stmt->execute()){
             //redirect to welcome page
-            header("location:welcome.php");
+            header("location: welcome.php");
         }else{
             echo"something went wrong please try again later";
         }
@@ -112,56 +112,43 @@ unset($pdo);
         <script src="https://kit.fontawesome.com/0cd95c0d58.js" crossorigin="anonymous"></script>
         <!--Custom CSS-->
         <link rel="stylesheet" type="text/css" href="css/style.css">
-        <title>Nav Register</title>
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <title>Register</title>
     </head>
 <body>
     <div class="container login-page-container ">
 
-        <div class="container mt-4">
-            <div class="row">
-            <div class="col-12 login-title text-center">
-                <h1>Register</h1>
-            </div>
-            </div>
-        </div>
 
-        <!--Login form-->
-        <div class="container form-container my-4">
-            <div class="row">
-            <div class="col-sm-12">
-            <form role="form" method="POST" id="regform">
-            <!--USERNAME DIV-->
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" name ="username"aria-describedby="emailHelp" placeholder="Enter username." required>
-                    <!--GENERATE USERNAME ERROR-->
-                    <small class="error"> &nbsp; <?php echo $username_err;?></small>
-                </div>
+<form class="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+  <p class="login-text">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-lock fa-stack-1x"></i>
+    </span>
+  </p>
+  <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
+  <input type="text" name="username" class="login-username" autofocus="true" required="true" placeholder="Username" value="<?php echo $username; ?>" />
+  <span class="help-block"><?php echo $username_err; ?></span>
+</div>
 
-            <!--PASSWORD DIV-->
-                <div class="form-group">
-                    <label for="userpassword">Password</label>
-                    <br>
-                    <small id="password_help">Password must have atleast 1 number, 1 lowercase and 1 uppercase character. The password must be 6 characters.
-                </small><br>
-                    <input type="password" class="form-control" id="userpassword" name="password"placeholder="Password" required>
-                    <!--GENERATE PASSWORD ERROR-->
-                    <small id="password_error" class="error"></small>
-                </div>
-             <!--CONFIRM PASSWORD DIV-->   
-                <div class="form-group">
-                    <label for="confirmuserpassword">Confirm Password</label>
-                    <input type="password" class="form-control" id="confirm_password" name="confirm_pass"placeholder="Confirm Password" required>
-                    <!--GENERATE PASSWORD CONFIRM ERROR-->
-                    <small id="confirm_error"class="error"> </small>
-                </div>
+<div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+  <input type="password" name="password" class="login-password" required="true" placeholder="Password" value="<?php echo $password; ?>"/>
+  <span class="help-block"><?php echo $password_err; ?></span>
+</div> 
 
-                <button type="submit" class="btn btn-primary sign-in-btn">Sign Up</button>
-            </form>
-            </div>
-            </div>
-        </div>
-        <!--Login form-->
+<div class="form-group <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
+  <input type="password" name="confirm_pass" class="login-password" required="true" placeholder="Confirm Password" value="<?php echo $confirm_password; ?>"/>
+  <span class="help-block"><?php echo $confirm_password_err; ?></span>
+</div> 
+
+  <input type="submit" name="submit" value="Subimt" class="login-submit" />
+  <input type="reset" name="reset" value="Reset" class="login-submit" />
+
+
+<a href="login.php" class="login-forgot-pass">Have An Account? Login Here</a>
+<div class="underlay-photo"></div>
+<div class="underlay-black"></div> 
+</form>
 
     </div>
     <script src="./js/register.js"></script>
