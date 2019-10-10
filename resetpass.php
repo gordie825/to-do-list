@@ -100,58 +100,34 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <script src="https://kit.fontawesome.com/0cd95c0d58.js" crossorigin="anonymous"></script>
         <!--Custom CSS-->
         <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
         <title>Reset</title>
     </head>
 <body>
     <div class="container login-page-container ">
 
-        <div class="container mt-4">
-            <div class="row">
-            <div class="col-12 login-title text-center">
-                <h1>Reset Password</h1>
-                <p>Please fill out this form to reset your password.</p>
-            </div>
-            </div>
-        </div>
+<form class="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+  <p class="login-text">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-lock fa-stack-1x"></i>
+    </span>
+  </p>
+<div class="form-group <?php echo (!empty($new_password_err)) ? 'has-error' : ''; ?>">
+  <input type="password" name="new_password" class="login-password" required="true" placeholder="New Password" value="<?php echo $new_password; ?>"/>
+  <span class="help-block"><?php echo $new_password_err; ?></span>
+</div> 
 
-        <!--Login form-->
-        <div class="container form-container my-4">
-            <div class="row">
-            <div class="col-sm-12">
-            <form role="form" method="POST" id="regform">
-            <!--USERNAME DIV-->
-                <!-- <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" name ="username"aria-describedby="emailHelp" placeholder="Enter username." required>
-                    <!--GENERATE USERNAME ERROR-->
-                    <!-- <small class="error"> Please enter &nbsp; <?php echo $username_err;?></small>
-                </div> -->
+<div class="form-group <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
+  <input type="password" name="confirm_password" class="login-password" required="true" placeholder="Confirm Password" value="<?php echo $confirm_password; ?>"/>
+  <span class="help-block"><?php echo $confirm_password_err; ?></span>
+</div> 
 
-            <!--PASSWORD DIV-->
-                <div class="form-group">
-                    <label for="newpassword"> New Password</label>
-                    <input type="password" class="form-control" id="newpassword" name="new_password"placeholder=" Pease enter your new passsword." required>
-                    <!--GENERATE PASSWORD ERROR-->
-                    <small id="password_error" class="error"><?php echo $new_password_err;?></small>
-                </div>
-             <!--CONFIRM PASSWORD DIV-->   
-                <div class="form-group">
-                    <label for="confirm_password">Confirm Password</label>
-                    <input type="password" class="form-control" id="confirm_password" name="confirm_password"placeholder="Confirm Password" required>
-                    <!--GENERATE PASSWORD CONFIRM ERROR-->
-                    <small id="confirm_error"class="error"><?php echo $confirm_password_err;?> </small>
-                </div>
-
-                <div class="form-group">
-                <button type="submit" class="btn btn-primary sign-in-btn">Reset Password</button>
-                <a class="btn btn-link" href="welcome.php">Cancel</a>
-                </div>
-                
-            </form>
-            </div>
-            </div>
-        </div>
-        <!--Login form-->
+<input type="submit" name="submit" value="Subimt" class="login-submit" />
+<a href="welcome.php" class="login-forgot-pass">Cancel</a>
+<div class="underlay-photo"></div>
+<div class="underlay-black"></div> 
+</form>
 
     </div>
     <script src="./js/register.js"></script>
